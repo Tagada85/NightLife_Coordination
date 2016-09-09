@@ -1,0 +1,14 @@
+html
+	head
+		title Nightlife App
+		link(rel='stylesheet' href='../css/bootstrap.css')
+		link(rel='stylesheet' href='../css/bootstrap-theme.css')
+		link(rel='stylesheet' href='../css/styles.css')
+		script(src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous")
+	body.container
+		p.text-center Use the YELP API to search for places at a specific location
+		form(action='/' method='POST').form-inline.text-center
+			input(type='search' name='location').form-control
+			input(type='submit' value='Search').btn.btn-default
+
+	block content

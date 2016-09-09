@@ -1,0 +1,17 @@
+.bar{
+	margin: 20px;
+	padding: 10px;
+}
+
+.bar img{
+	max-width: 100%;
+}
+
+.bar-desc{
+	margin-left: 20px;
+}
+
+#text-snippet{
+	font-size: 11px;
+	font-weight: italic;
+}

@@ -1,0 +1,29 @@
+extends layout
+block content
+    if user
+        h3.text-center Welcome #{user.username}
+    if bars 
+        for bar in bars.businesses
+            div.bar
+                img(src=bar.image_url alt='Image').pull-left
+                div.bar-desc
+                    p=bar.name
+                    if !user
+                        span
+                            a(href='http://127.0.0.1:3000/auth/twitter').btn.btn-success  GOING
+                    else
+                        span
+                            form(action='/going' method="POST").form
+                                input(type='hidden' name='name' value=user.username)
+                                input(type='hidden' name='bar' value=bar.id)
+                                if userBars.barsEvent.indexOf(bar.id) >= 0
+                                    button(type='submit').btn.btn-danger#submit-btn I don't want to go anymore
+                                else
+                                    button(type='submit').btn.btn-success#submit-btn I want to go
+
+
+                    p#text-snippet=bar.snippet_text
+    else 
+        div
+            p Enter a location in the search bar. It uses the YELP's API
+                
