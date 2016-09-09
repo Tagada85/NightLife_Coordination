@@ -73,6 +73,6 @@ app.set('views', __dirname + '/public/views');
 app.use(express.static('./public'));
 app.use(router);
 
-app.listen(3000, ()=>{
+app.listen(port, ()=>{
 	console.log('Listening at', port);
 });
