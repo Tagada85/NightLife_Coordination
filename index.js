@@ -11,7 +11,7 @@ const MongoStore = require('connect-mongo')(session);
 const app = express();
 
 
-mongoose.connect("mongodb://localhost:27017/nightlife");
+mongoose.connect("mongodb://Tagada85:kallon85@ds021026.mlab.com:21026/nightlife");
 const db = mongoose.connection;
 mongoose.Promise = global.Promise;
 
@@ -19,7 +19,7 @@ mongoose.Promise = global.Promise;
 passport.use(new TwitterStrategy({
     consumerKey: 'xcs1oKNJo5FRDbgjXqYaMr24P',
     consumerSecret: 'YyWog5XnTD79aRbQQ0Qpoja6iICXwRibazzRiW3FLQ8GiCzSqB',
-    callbackURL: "http://127.0.0.1:3000/auth/twitter/return"
+    callbackURL: "https://pure-cove-13344.herokuapp.com/auth/twitter/return"
   },
   function(token, tokenSecret, profile, done) {
     User.findOneAndUpdate({ username: profile.displayName},
