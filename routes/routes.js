@@ -12,9 +12,10 @@ router.get('/', (req, res, next)=>{
 	if(req.session.user){
 		User.findOne({username: req.session.user.username}, (err, user)=>{
 			if(err) return next(err);
-			console.log(user);
 			res.render('index', {bars: req.session.bars, user: req.session.user, userBars: user});
 		});
+	}else{
+		res.render('index');
 	}
 });
 
@@ -34,13 +35,15 @@ router.post('/', (req, res, next)=>{
 		if(err) throw err;	
 		let jsonBody = JSON.parse(data.body);
 		req.session.bars = jsonBody;
-		if(req.session.user){
-			User.findOne({username: req.session.user.username}, (err, user)=>{
-				if(err) return next(err);
-				res.render('index', {bars: req.session.bars, user: req.session.user, userBars: user});
-			});
-		}
 	});
+	if(req.session.user){
+		let promise = findUser(req.session.user.username);
+		promise.then((user)=>{
+			res.render('index', {bars: req.session.bars, user: req.session.user, userBars: user});
+		});
+	}
+
+	res.render('index', {bars: req.session.bars});
 });
 
 
@@ -61,5 +64,9 @@ router.post('/going', (req,res, next)=>{
 	});
 });
 
+function findUser(username){
+	let promise = User.find({username: username}).exec();
+	return promise;
+}
 
 module.exports = router;
