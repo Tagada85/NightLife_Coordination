@@ -52,9 +52,13 @@ router.post('/going', (req,res, next)=>{
 	let bar_id = req.body.bar;
 	User.findOne({username: req.session.user.username}, (err, user)=>{
 		if(err) return next(err);
-		if(user.barsEvent.indexOf(bar_id) >= 0){
-			let i = user.barsEvent.indexOf(bar_id);
-			user.barsEvent.splice(i, 1);
+		if(user.barsEvent){
+			if(user.barsEvent.indexOf(bar_id) >= 0){
+				let i = user.barsEvent.indexOf(bar_id);
+				user.barsEvent.splice(i, 1);
+			}else{
+				user.barsEvent.push(bar_id);
+			}
 		}else{
 			user.barsEvent.push(bar_id);
 		}
