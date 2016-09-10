@@ -35,15 +35,15 @@ router.post('/', (req, res, next)=>{
 		if(err) throw err;	
 		let jsonBody = JSON.parse(data.body);
 		req.session.bars = jsonBody;
+		if(req.session.user){
+			let promise = findUser(req.session.user.username);
+			promise.then((user)=>{
+				res.render('index', {bars: req.session.bars, user: req.session.user, userBars: user});
+			});
+		}
+		res.render('index', {bars: req.session.bars});
 	});
-	if(req.session.user){
-		let promise = findUser(req.session.user.username);
-		promise.then((user)=>{
-			res.render('index', {bars: req.session.bars, user: req.session.user, userBars: user});
-		});
-	}
 
-	res.render('index', {bars: req.session.bars});
 });
 
 
